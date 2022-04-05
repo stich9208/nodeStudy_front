@@ -15,48 +15,8 @@ import VideoUpload from "./d_pages/VideoUpload";
 import ChangePassword from "./d_pages/ChangePassword";
 import NotFound from "./d_pages/NotFound";
 
-import AWS from "aws-sdk";
-import { PutBucketCorsCommand, S3Client } from "@aws-sdk/client-s3";
-
 const RootRouter = () => {
   dotenv.config();
-
-  // const REGION = "kr-standard";
-  // const BUCKET_NAME = "toyproject";
-  // const endpoint = new AWS.Endpoint("https://kr.object.ncloudstorage.com");
-
-  // const s3Client = new S3Client({
-  //   region: REGION,
-  // });
-
-  // AWS.config.update({
-  //   region: REGION,
-  //   endpoint,
-  //   credentials: {
-  //     accessKeyId:
-  //     secretAccessKey:
-  //   },
-  // });
-
-  // const S3 = new AWS.S3({ apiVersion: "2006-03-01" });
-
-  // const params = {
-  //   Bucket: BUCKET_NAME,
-
-  //   CORSConfiguration: {
-  //     CORSRules: [
-  //       {
-  //         AllowedHeaders: ["*"],
-  //         AllowedMethods: ["PUT", "POST"],
-  //         AllowedOrigins: ["*"],
-  //       },
-  //     ],
-  //   },
-  // };
-
-  // (async () => {
-  //   await S3.putBucketCors(params).promise();
-  // })();
 
   return (
     <BrowserRouter>

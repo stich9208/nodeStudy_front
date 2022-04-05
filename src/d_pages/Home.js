@@ -55,15 +55,20 @@ const Home = () => {
               key={video._id}
               onClick={() => clickVideoItem(video._id)}
             >
-              <div
+              <video
+                controls
                 style={{
+                  border: "1px solid black",
                   width: "100%",
-                  height: "200px",
-                  backgroundColor: "skyblue",
+                  height: "100%",
+                  maxHeight: "260px",
                   borderRadius: "15px",
                   marginBottom: "7px",
+                  backgroundColor: "lightgrey",
                 }}
-              ></div>
+              >
+                <source src={video.url} />
+              </video>
               <VideoInfo>
                 <TitleText>{video.title}</TitleText>
                 <SubTitleText>{getElapsedTime(video.createdAt)}</SubTitleText>
@@ -90,6 +95,7 @@ const VideoListContainer = styled.div`
 `;
 
 const EachVideo = styled.div`
+  width: 100%;
   height: 100%;
   cursor: pointer;
 `;

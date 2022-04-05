@@ -6,10 +6,10 @@ import Input from "../a_atom/Input";
 const UserForm = ({ userInfo, isEdit, inputChange }) => {
   return (
     <>
-      {Object.keys(userInfo).map((infoTitle) => {
+      {Object.keys(userInfo).map((infoTitle, idx) => {
         if (infoTitle !== "_id") {
           return (
-            <InfoColumn>
+            <InfoColumn key={idx}>
               <InfoTitle>{infoTitle.toUpperCase()}</InfoTitle>
               {isEdit ? (
                 <Input
