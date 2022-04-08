@@ -1,20 +1,30 @@
 import React, { useState } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faVideo, faHome } from "@fortawesome/free-solid-svg-icons";
 
+//recoil
 import { useRecoilValue } from "recoil";
 import { loginState } from "../recoil/selectors";
 
+//components
 import Input from "../a_atom/Input";
 import Button from "../a_atom/Button";
 
+//fontawesome
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faVideo, faHome } from "@fortawesome/free-solid-svg-icons";
+
 const Nav = () => {
+  //constant state
   const navigate = useNavigate();
-  const [searchKey, setSearchKey] = useState("");
+
+  //recoil state
   const isLogin = useRecoilValue(loginState);
 
+  //component state
+  const [searchKey, setSearchKey] = useState("");
+
+  //functions
   const onChangeFunc = (e) => {
     const { value } = e.target;
     setSearchKey(value);

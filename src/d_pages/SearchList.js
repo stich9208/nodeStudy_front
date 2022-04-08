@@ -2,11 +2,15 @@ import React, { useEffect, useState } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
 
 const SearchList = () => {
-  const API_URL = process.env.REACT_APP_API_URL;
+  //constant state
   const navigate = useNavigate();
-  const [params, setParams] = useSearchParams();
+  const params = useSearchParams();
+  const API_URL = process.env.REACT_APP_API_URL;
+
+  //component state
   const [searchList, setSearchList] = useState([]);
 
+  //useEffect
   useEffect(() => {
     const keyword = params.get("keyword");
     fetch(`${API_URL}/search/?keyword=${keyword}`)

@@ -6,7 +6,7 @@ const TitleText = ({ children }) => {
 };
 
 const Title = styled.span`
-  font-size: 20px;
+  font-size: 16px;
   font-weight: bold;
 `;
 

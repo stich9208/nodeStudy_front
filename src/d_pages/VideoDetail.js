@@ -1,23 +1,34 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { useRecoilValue } from "recoil";
+import styled from "styled-components";
 import { Cookies } from "react-cookie";
+
+//recoil
+import { useRecoilValue } from "recoil";
 import { loginState, userInfoState } from "../recoil/selectors";
 
+//components
+import VideoForm from "../b_organisms/VideoForm";
+
 const VideoDetail = () => {
-  const API_URL = process.env.REACT_APP_API_URL;
-  const cookies = new Cookies();
+  //constant state
   const params = useParams();
   const navigate = useNavigate();
+  const cookies = new Cookies();
+  const API_URL = process.env.REACT_APP_API_URL;
 
+  //recoil state
   const isLogin = useRecoilValue(loginState);
   const userInfo = useRecoilValue(userInfoState);
+
+  //component state
   const [video, setVideo] = useState("");
   const [editVideo, setEditVideo] = useState("");
   const [isEdit, setIsEdit] = useState(false);
   const [commentList, setCommentList] = useState([]);
   const [commentContent, setCommentContent] = useState("");
 
+  //useEffect
   useEffect(() => {
     fetch(`${API_URL}/video/${params.id}`)
       .then((res) => res.json())
@@ -30,6 +41,7 @@ const VideoDetail = () => {
     setCommentList(video.comments);
   }, [video]);
 
+  //functions
   const onChangeFunc = (e) => {
     let { name, value } = e.target;
     if (name === "hashtags") {
@@ -79,11 +91,6 @@ const VideoDetail = () => {
           .catch((err) => console.log(err));
   };
 
-  const onCancel = () => {
-    setEditVideo(video);
-    setIsEdit(false);
-  };
-
   const onDelete = () => {
     fetch(`${API_URL}/video/${params.id}/delete`, {
       method: "DELETE",
@@ -104,6 +111,11 @@ const VideoDetail = () => {
       .catch((err) => console.log(err));
   };
 
+  const onCancel = () => {
+    setEditVideo(video);
+    setIsEdit(false);
+  };
+
   const commentInputOnChange = (e) => {
     const { value } = e.target;
     setCommentContent(value);
@@ -119,7 +131,6 @@ const VideoDetail = () => {
     };
     newCommentList.unshift(newComment);
     setCommentList(newCommentList);
-    console.log(userInfo);
 
     await fetch(`${API_URL}/video/comment`, {
       method: "POST",
@@ -129,16 +140,15 @@ const VideoDetail = () => {
         userId: userInfo._id,
       }),
       headers: { "Content-Type": "application/json" },
-    })
-      // .then((res) => res.json())
-      .then((res) => console.log(res));
+    }).then((res) => console.log(res));
     setCommentContent("");
   };
 
   return (
     video && (
-      <div style={{ display: "flex", flexDirection: "column" }}>
-        <div style={{ display: "flex" }}>
+      <VideoDetailContainer>
+        <VideoForm page="detail" info={video} userInfo={userInfo} />
+        {/* <div style={{ display: "flex" }}>
           <div>title : </div>
           {isEdit ? (
             <input
@@ -187,18 +197,8 @@ const VideoDetail = () => {
             </>
           ) : (
             <>
-              <button
-                // style={{ display: btnVisible ? "block" : "none" }}
-                onClick={onEdit}
-              >
-                Edit video
-              </button>
-              <button
-                // style={{ display: btnVisible ? "block" : "none" }}
-                onClick={onDelete}
-              >
-                Delete video
-              </button>
+              <button onClick={onEdit}>Edit video</button>
+              <button onClick={onDelete}>Delete video</button>
             </>
           )
         ) : (
@@ -228,10 +228,17 @@ const VideoDetail = () => {
           </>
         ) : (
           ""
-        )}
-      </div>
+        )} */}
+      </VideoDetailContainer>
     )
   );
 };
+
+const VideoDetailContainer = styled.div`
+  display: flex;
+  width: 100%;
+  height: calc(100vh - 60px);
+  padding: 20px;
+`;
 
 export default VideoDetail;

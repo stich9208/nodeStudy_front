@@ -3,17 +3,23 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { Cookies } from "react-cookie";
 
+//util
 import { getElapsedTime } from "../util/util";
 
+//components
 import TitleText from "../a_atom/TitleText";
 import SubTitleText from "../a_atom/SubTitleText";
 
 const Home = () => {
-  const API_URL = process.env.REACT_APP_API_URL;
-  const cookies = new Cookies();
+  //constant state
   const navigate = useNavigate();
+  const cookies = new Cookies();
+  const API_URL = process.env.REACT_APP_API_URL;
+
+  //component state
   const [videos, setVideos] = useState([]);
 
+  //useEffect
   useEffect(() => {
     fetch(`${API_URL}/videos`)
       .then((res) => res.json())
@@ -21,6 +27,7 @@ const Home = () => {
       .catch((err) => console.log("fetch error!", err));
   }, []);
 
+  //functions
   const clickJoin = () => {
     navigate("/join");
   };
@@ -56,15 +63,17 @@ const Home = () => {
               onClick={() => clickVideoItem(video._id)}
             >
               <video
-                controls
+                autoPlay
+                muted
+                loop
                 style={{
-                  border: "1px solid black",
+                  border: "3px solid palegoldenrod",
                   width: "100%",
                   height: "100%",
                   maxHeight: "260px",
                   borderRadius: "15px",
                   marginBottom: "7px",
-                  backgroundColor: "lightgrey",
+                  backgroundColor: "black",
                 }}
               >
                 <source src={video.url} />
@@ -104,6 +113,7 @@ const VideoInfo = styled.div`
   display: flex;
   flex-direction: column;
   margin-left: 10px;
+  gap: 5px;
 `;
 
 export default Home;

@@ -1,21 +1,33 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
+import styled from "styled-components";
 import { useNavigate, Navigate } from "react-router";
+
+//recoil
 import { useRecoilValue } from "recoil";
 import { loginState, userInfoState } from "../recoil/selectors";
 
+//components
+import VideoForm from "../b_organisms/VideoForm";
+
 const VideoUpload = () => {
+  //constant state
   const API_URL = process.env.REACT_APP_API_URL;
+  const navigate = useNavigate();
+
+  //recoil state
   const isLogin = useRecoilValue(loginState);
   const userInfo = useRecoilValue(userInfoState);
-  const navigate = useNavigate();
+
+  //component state
   const [uploadFeild, setUploadFeild] = useState({});
 
+  //functions
   const uploadVideo = () => {
+    uploadFeild.id = userInfo._id;
     let formData = new FormData();
     Object.keys(uploadFeild).forEach((key) =>
       formData.append(key, uploadFeild[key])
     );
-    formData.append("id", userInfo._id);
     fetch(`${API_URL}/upload`, {
       method: "POST",
       body: formData,
@@ -44,7 +56,8 @@ const VideoUpload = () => {
   };
 
   return isLogin ? (
-    <div style={{ display: "flex", flexDirection: "column" }}>
+    <UploadContainer>
+      {/* <VideoForm page="upload"></VideoForm> */}
       <label htmlFor="title">
         title
         <input type="text" name="title" onChange={inputOnChange} />
@@ -68,10 +81,17 @@ const VideoUpload = () => {
         />
       </label>
       <button onClick={uploadVideo}>upload</button>
-    </div>
+    </UploadContainer>
   ) : (
     <Navigate to="/login" />
   );
 };
+
+const UploadContainer = styled.div`
+  display: flex;
+  width: 100%;
+  height: calc(100vh - 60px);
+  padding: 20px;
+`;
 
 export default VideoUpload;

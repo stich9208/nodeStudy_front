@@ -1,6 +1,8 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import dotenv from "dotenv";
+
+//components
 import PrivateRouter from "./routers/PrivateRouter";
 import AuthRouter from "./routers/AuthRouter";
 import Nav from "./b_organisms/Nav";
@@ -75,7 +77,6 @@ const RootRouter = () => {
             </AuthRouter>
           }
         />
-
         <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>

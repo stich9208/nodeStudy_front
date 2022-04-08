@@ -1,20 +1,28 @@
 import React, { useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
+
+//recoil
 import { useRecoilValue } from "recoil";
 import { userInfoState } from "../recoil/selectors";
 
 const ChangePassword = () => {
+  //constant state
   const navigate = useNavigate();
+  const API_URL = process.env.REACT_APP_API_URL;
   const initialState = {
     beforePassword: "",
     newPassword: "",
     newPasswordConfirm: "",
   };
-  const API_URL = process.env.REACT_APP_API_URL;
+
+  //recoil state
   const userInfo = useRecoilValue(userInfoState);
+
+  //component state
   const [password, setPassword] = useState(initialState);
   const [beforePasswordStatus, setBeforePasswordStatus] = useState(true);
 
+  //functions
   const checkValidation = () => {
     const { beforePassword, newPassword, newPasswordConfirm } = password;
     if (beforePassword === "" || !beforePasswordStatus) {

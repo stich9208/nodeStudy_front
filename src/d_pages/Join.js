@@ -1,24 +1,25 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import styled from "styled-components";
 
+//components
 import Input from "../a_atom/Input";
 import Button from "../a_atom/Button";
 
 const Join = () => {
-  const API_URL = process.env.REACT_APP_API_URL;
+  //constant state
   const navigate = useNavigate();
   const emailRegex =
     /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-
   const [joinInfo, setJoinInfo] = useState({
     email: "",
     username: "",
     password: "",
     password2: "",
   });
+  const API_URL = process.env.REACT_APP_API_URL;
 
+  //functions
   const joinInfoValidation = () => {
     if (joinInfo.email === "") {
       return alert("email is required!");

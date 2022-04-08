@@ -48,3 +48,11 @@ export const getElapsedTime = (createdTime) => {
       : `${Math.floor(elapsedTime / 24)} 일전`;
   return timeDesc;
 };
+
+export const getGeneralDate = (dateInfo) => {
+  dateInfo = new Date(dateInfo);
+  const year = dateInfo.getFullYear();
+  const month = dateInfo.getMonth() + 1;
+  const date = dateInfo.getDate();
+  return `${year}.${month}.${date}`;
+};

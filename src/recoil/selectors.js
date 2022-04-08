@@ -2,7 +2,10 @@ import { selector } from "recoil";
 import { Cookies } from "react-cookie";
 import jwt from "jsonwebtoken";
 
+//util
 import { checkAuth } from "../util/util";
+
+//component
 import { refreshState } from "./atoms";
 
 const cookies = new Cookies();

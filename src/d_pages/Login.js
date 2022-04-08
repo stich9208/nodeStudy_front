@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate, Navigate } from "react-router";
-import { Link } from "react-router-dom";
+import { useNavigate, Navigate, Link } from "react-router-dom";
 import styled from "styled-components";
-import { useRecoilState, useRecoilValue } from "recoil";
 
 //recoil
+import { useRecoilState, useRecoilValue } from "recoil";
 import { refreshState } from "../recoil/atoms";
 import { loginState } from "../recoil/selectors";
 
@@ -13,18 +12,25 @@ import Input from "../a_atom/Input";
 import Button from "../a_atom/Button";
 
 const Login = () => {
-  const API_URL = process.env.REACT_APP_API_URL;
+  //constant state
   const navigate = useNavigate();
+  const API_URL = process.env.REACT_APP_API_URL;
+
+  //recoil state
   const [refresh, setRefresh] = useRecoilState(refreshState);
   const isLogin = useRecoilValue(loginState);
+
+  //component state
   const [loginInfo, setLoginInfo] = useState({ email: "", password: "" });
 
+  //useEffect
   useEffect(() => {
     if (isLogin) {
       navigate("/");
     }
   }, [isLogin, navigate]);
 
+  //functions
   const inputChange = (e) => {
     const { name, value } = e.target;
     setLoginInfo({ ...loginInfo, [name]: value });

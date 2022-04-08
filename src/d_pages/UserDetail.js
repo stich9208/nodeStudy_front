@@ -8,17 +8,23 @@ import { refreshState, userVideoState } from "../recoil/atoms";
 import { userInfoState } from "../recoil/selectors";
 
 //components
-import UserForm from "../b_organisms/UserForm";
+import InfoForm from "../b_organisms/InfoForm";
 import Button from "../a_atom/Button";
 
 const UserDetail = () => {
+  //constant state
   const navigate = useNavigate();
+
+  //recoil state
   const userInfo = useRecoilValue(userInfoState);
   const [refresh, setRefresh] = useRecoilState(refreshState);
   const [userVideos, setUserVideos] = useRecoilState(userVideoState);
+
+  //component state
   const [userInput, setUserInput] = useState(userInfo);
   const [isEdit, setIsEdit] = useState(false);
 
+  //useEffect
   useEffect(() => {
     const API_URL = process.env.REACT_APP_API_URL;
     fetch(`${API_URL}/videolist/${userInfo._id}`)
@@ -29,6 +35,7 @@ const UserDetail = () => {
       .catch((err) => console.log("get user info error", err));
   }, []);
 
+  //functions
   const inputChange = (e) => {
     const { name, value } = e.target;
     setUserInput({ ...userInput, [name]: value });
@@ -81,11 +88,7 @@ const UserDetail = () => {
     <UserDetailContainer>
       <UserImage src="/images/profile.png" />
       <UserInfoColumn>
-        <UserForm
-          userInfo={userInput}
-          isEdit={isEdit}
-          inputChange={inputChange}
-        />
+        <InfoForm info={userInput} isEdit={isEdit} inputChange={inputChange} />
         <ButtonColumn>
           {isEdit ? (
             <>
