@@ -131,6 +131,7 @@ const InfoContainer = styled.div`
 const CommentContainer = styled.div`
   width: 100%;
   height: 100%;
+  overflow-y: auto;
 `;
 
 const CommentSection = styled.div`
@@ -151,7 +152,7 @@ const EachCommentHeader = styled.div`
   display: flex;
   align-items: center;
   gap: 10px;
-  font-size: 12px;
+  font-size: 11px;
   font-weight: bold;
 `;
 
@@ -163,7 +164,7 @@ const CommentProfile = styled.img`
 
 const EachCommentContent = styled.div`
   margin-left: 2%;
-  font-size: 15px;
+  font-size: 13px;
   font-weight: normal;
 `;
 

@@ -25,8 +25,6 @@ const VideoDetail = () => {
   const [video, setVideo] = useState("");
   const [editVideo, setEditVideo] = useState("");
   const [isEdit, setIsEdit] = useState(false);
-  const [commentList, setCommentList] = useState([]);
-  const [commentContent, setCommentContent] = useState("");
 
   //useEffect
   useEffect(() => {
@@ -38,7 +36,6 @@ const VideoDetail = () => {
 
   useEffect(() => {
     setEditVideo(video);
-    setCommentList(video.comments);
   }, [video]);
 
   //functions
@@ -114,34 +111,6 @@ const VideoDetail = () => {
   const onCancel = () => {
     setEditVideo(video);
     setIsEdit(false);
-  };
-
-  const commentInputOnChange = (e) => {
-    const { value } = e.target;
-    setCommentContent(value);
-  };
-
-  const clickAddCommentBtn = async () => {
-    const newCommentList = commentList;
-    const newComment = {
-      owner: {
-        username: userInfo.username,
-      },
-      text: commentContent,
-    };
-    newCommentList.unshift(newComment);
-    setCommentList(newCommentList);
-
-    await fetch(`${API_URL}/video/comment`, {
-      method: "POST",
-      body: JSON.stringify({
-        content: commentContent,
-        videoId: video._id,
-        userId: userInfo._id,
-      }),
-      headers: { "Content-Type": "application/json" },
-    }).then((res) => console.log(res));
-    setCommentContent("");
   };
 
   return (

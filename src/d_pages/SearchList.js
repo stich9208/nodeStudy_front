@@ -4,7 +4,7 @@ import { useSearchParams, useNavigate } from "react-router-dom";
 const SearchList = () => {
   //constant state
   const navigate = useNavigate();
-  const params = useSearchParams();
+  const [params, setParams] = useSearchParams();
   const API_URL = process.env.REACT_APP_API_URL;
 
   //component state
